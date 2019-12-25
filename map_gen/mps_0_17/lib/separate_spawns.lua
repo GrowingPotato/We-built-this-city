@@ -107,7 +107,9 @@ function Public.FindUnusedSpawns(player, remove_player)
         -- If this player is staying in the game, lets make sure we don't delete them
         -- along with the map chunks being cleared.
         player.teleport({x=0,y=0}, surface_name)
-        player.character.active = true
+        if player and player.character and player.character.valid then
+            player.character.active = true
+        end
 
         -- Clear out global variables for that player
         if (global.playerSpawns[player.name] ~= nil) then
@@ -685,7 +687,9 @@ function Public.SendPlayerToNewSpawnAndCreateIt(delayedSpawn)
     local player = game.players[delayedSpawn.playerName]
     player.teleport(delayedSpawn.pos, surface_name)
     Utils.GivePlayerStarterItems(game.players[delayedSpawn.playerName])
-    player.character.active = true
+    if player and player.character and player.character.valid then
+        player.character.active = true
+    end
 
     -- Chart the area.
     --Utils.ChartArea(player.force, delayedSpawn.pos, math.ceil(global.scenario_config.gen_settings.land_area_tiles/global_data.chunk_size), player.surface)
@@ -708,14 +712,18 @@ function Public.SendPlayerToSpawn(player)
         else
             player.teleport(global.playerSpawns[player.name], player.surface)
         end
-        player.character.active = true
+        if player and player.character and player.character.valid then
+            player.character.active = true
+        end
     else
         if not dest then
             player.teleport(player.surface.find_non_colliding_position("character", {x=0,y=0}, 3, 0,5), player.surface)
         else
             player.teleport(player.surface.find_non_colliding_position("character", dest, 3, 0,5), player.surface)
         end
-        player.character.active = true
+        if player and player.character and player.character.valid then
+            player.character.active = true
+        end
     end
 end
 
@@ -726,13 +734,17 @@ function Public.SendPlayerToRandomSpawn(player)
 
     if (rndSpawn == 0) then
         player.teleport(game.forces[global.main_force_name].get_spawn_position(surface_name), surface_name)
-        player.character.active = true
+        if player and player.character and player.character.valid then
+            player.character.active = true
+        end
     else
         counter = counter + 1
         for _, spawn in pairs(global.uniqueSpawns) do
             if (counter == rndSpawn) then
                 player.teleport(spawn.pos)
-                player.character.active = true
+                if player and player.character and player.character.valid then
+                    player.character.active = true
+                end
                 break
             end
             counter = counter + 1
@@ -1414,7 +1426,9 @@ function Public.SharedSpwnOptsGuiClick(event)
 
                     -- Unlock spawn control gui tab
                     Gui.set_tab(joiningPlayer, "Spawn Controls", true)
-                    joiningPlayer.character.active = true
+                    if joiningPlayer and joiningPlayer.character and joiningPlayer.character.valid then
+                        joiningPlayer.character.active = true
+                    end
                     Score.init_player_table(joiningPlayer)
                     return
                 else
@@ -1750,7 +1764,9 @@ function Public.SpawnCtrlGuiClick(event)
 
                 -- Unlock spawn control gui tab
                 Gui.set_tab(joiningPlayer, "Spawn Controls", true)
-                joiningPlayer.character.active = true
+                if joiningPlayer and joiningPlayer.character and joiningPlayer.character.valid then
+                    joiningPlayer.character.active = true
+                end
                 Score.init_player_table(joiningPlayer)
             else
                 Utils.SendBroadcastMsg({"oarc-player-left-while-joining", joinQueuePlayerChoice})

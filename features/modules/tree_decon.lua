@@ -20,6 +20,7 @@ local trees = this.trees
 end)
 
 Event.add(defines.events.on_marked_for_deconstruction, function(event)
+    if not event.player_index then return end
     local player = game.players[event.player_index]
     if not player then return end
     local role = Roles.get_role(player)
