@@ -6,7 +6,8 @@ local Public = {}
 
 local pages = {
     require 'utils.debug.safe.public_global_view',
-    require 'utils.debug.safe.package_view'
+    require 'utils.debug.safe.package_view',
+    require 'utils.debug.safe.global_view'
 }
 
 local main_frame_name = Gui.uid_name()

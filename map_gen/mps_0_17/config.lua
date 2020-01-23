@@ -179,6 +179,7 @@ global.scenario_config = {
         tree_circle = false,
         tree_octagon = false,
         tree_square = true,
+        trees_enabled = true,
     },
 
     -- Safe Spawn Area Options

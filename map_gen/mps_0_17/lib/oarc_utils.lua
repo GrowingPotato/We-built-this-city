@@ -914,10 +914,12 @@ function Public.CreateCropCircle(surface, centerPos, chunkArea, tileRadius, fill
                 end
             end
 
-            -- Create a circle of trees around the spawn point.
-            if ((distVar < tileRadSqr-200) and
-                (distVar > tileRadSqr-400)) then
-                surface.create_entity({name="tree-02", amount=2, position={i, j}})
+            if global.scenario_config.gen_settings.trees_enabled then
+                -- Create a circle of trees around the spawn point.
+                if ((distVar < tileRadSqr-200) and
+                    (distVar > tileRadSqr-400)) then
+                    surface.create_entity({name="tree-02", amount=2, position={i, j}})
+                end
             end
         end
     end
@@ -972,11 +974,12 @@ function Public.CreateCropSquare(surface, centerPos, area, tileRadius, fillTile)
                     table_insert(dirtTiles, {name = fillTile, position ={i,j}})
                 end
             end
-
-            -- Create a circle of trees around the spawn point.
-            if ((distVar < tileRadius) and
-                (distVar > tileRadius-3)) then
-                surface.create_entity({name="tree-02", amount=1, position={i, j}})
+            if global.scenario_config.gen_settings.trees_enabled then
+                -- Create a circle of trees around the spawn point.
+                if ((distVar < tileRadius) and
+                    (distVar > tileRadius-3)) then
+                    surface.create_entity({name="tree-02", amount=1, position={i, j}})
+                end
             end
         end
     end
@@ -1006,10 +1009,12 @@ function Public.CreateCropOctagon(surface, centerPos, chunkArea, tileRadius, fil
                 end
             end
 
-            -- Create a tree ring
-            if ((distVar < tileRadius) and
-                (distVar > tileRadius-2)) then
-                surface.create_entity({name="tree-01", amount=1, position={i, j}})
+            if global.scenario_config.gen_settings.trees_enabled then
+                -- Create a tree ring
+                if ((distVar < tileRadius) and
+                    (distVar > tileRadius-2)) then
+                    surface.create_entity({name="tree-01", amount=1, position={i, j}})
+                end
             end
         end
     end

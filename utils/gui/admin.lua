@@ -26,7 +26,8 @@ local jail_messages = {
 local function jail(player, source_player)
 	local source_role = Roles.get_role(player)
 	local target_role = Roles.get_role(source_player)
-	if source_role.power <= target_role.power then source_player.print(player.name .. " has a higher role than you!") return end
+	if source_role.power < target_role.power then source_player.print(player.name .. " has a higher role than you! Can't jail!", Color.warning) return end
+	if source_role.power == target_role.power then source_player.print(player.name .. " has an equal role! Can't jail!", Color.warning) return end
 	this[player.index] = player.permission_group.name
 	game.print(player.name .. " has been jailed. " .. jail_messages[math.random(1, #jail_messages)], { r=0.98, g=0.66, b=0.22})
 	Roles.give_role(player, 'Jail', source_player.name)
@@ -38,14 +39,21 @@ local freedom_messages = {
 	"Welcome back!"
 }
 local function free(player, source_player)
-	if this[player.index] then
-		Roles.give_role(player, tostring(this[player.index]), source_player.name)
-		this[player.index] = nil
+	local has_role = Roles.get_role(player).name
+	if has_role == 'Jail' then
+		if this[player.index] then
+			Roles.give_role(player, tostring(this[player.index]), source_player.name)
+			this[player.index] = nil
+		else
+			Roles.give_role(player, 'Rookie', source_player.name)
+			return
+		end
+		game.print(player.name .. " was set free from jail. " .. freedom_messages[math.random(1, #freedom_messages)], { r=0.98, g=0.66, b=0.22})
+		admin_only_message(source_player.name .. " set " .. player.name .. " free from jail")
 	else
+		source_player.print(player.name .. " is not in jail!", Color.warning)
 		return
 	end
-	game.print(player.name .. " was set free from jail. " .. freedom_messages[math.random(1, #freedom_messages)], { r=0.98, g=0.66, b=0.22})
-	admin_only_message(source_player.name .. " set " .. player.name .. " free from jail")
 end
 
 local bring_player_messages = {
