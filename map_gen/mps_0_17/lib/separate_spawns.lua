@@ -272,7 +272,7 @@ function Public.SetupAndClearSpawnAreas(surface, chunkArea)
                     end
                 end
                 if (spawn.layout == "new") then
-                    Utils.CreateCropSquare(surface, spawn.pos, chunkArea, global.scenario_config.gen_settings.land_area_tiles, fill_tile)
+                    Utils.CreateCropSquare(surface, spawn.pos, chunkArea, global_data.chunk_size*3, fill_tile)
                     if (spawn.moat) then
                         Utils.CreateMoatSquare(surface, spawn.pos, chunkArea, global.scenario_config.gen_settings.land_area_tiles, fill_tile)
                     end
@@ -1030,8 +1030,8 @@ function Public.DisplaySpawnOptions(player)
     UtilsGui.AddLabel(sGui, "warning_lbl1", "You can choose between the classic layout or the new one.", UtilsGui.my_label_style)
     local layout_flow = sGui.add{name = "layout", type = "frame", direction="vertical", style = "bordered_frame"}
     UtilsGui.AddLabel(layout_flow, "normal_spawn_lbl1", {"oarc-layout"}, UtilsGui.my_label_style)
-    layout_flow.add{name = "layout_classic", type = "radiobutton", caption={"oarc-layout-old"}, state=true, tooltip="The classic layout, a circle."}
-    layout_flow.add{name = "layout_new", type = "radiobutton", caption={"oarc-layout-new"}, state=false, tooltip="The new layout, rectangle-alike shape."}
+    layout_flow.add{name = "layout_classic", type = "radiobutton", caption={"oarc-layout-old"}, state=false, tooltip="The classic layout, a circle."}
+    layout_flow.add{name = "layout_new", type = "radiobutton", caption={"oarc-layout-new"}, state=true, tooltip="The new layout, rectangle-alike shape."}
 
     local soloSpawnFlow = sGui.add{name = "spawn_solo_flow",
                                     type = "frame",

@@ -170,7 +170,7 @@ global.scenario_config = {
         moat_size_modifier = 1,
 
         -- Start resource shape. true = circle, false = square.
-        resources_circle_shape = true,
+        resources_circle_shape = false,
 
         -- Force the land area circle at the spawn to be fully grass
         force_grass = true,

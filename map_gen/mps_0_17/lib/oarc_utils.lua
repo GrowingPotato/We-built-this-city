@@ -964,7 +964,7 @@ function Public.CreateCropSquare(surface, centerPos, area, tileRadius, fillTile)
             -- This ( X^2 + Y^2 ) is used to calculate if something
             -- is inside a circle area.
 
-            local distVar = math_floor(math.max(abs(centerPos.x - i)-20, abs(centerPos.y - j)+20))
+            local distVar = math_floor(math.max(abs(centerPos.x - i)-10, abs(centerPos.y - j)+20))
             --local distVar = math_floor((centerPos.x - i)^2 + (centerPos.y - j)^2)
 
             -- Fill in all unexpected water in a circle
@@ -1068,7 +1068,7 @@ function Public.CreateWaterStrip(surface, leftPos, length)
     surface.set_tiles(waterTiles)
 end
 
--- function Public.to generate a resource patch, of a certain size/amount at a pos.
+-- function to generate a resource patch, of a certain size/amount at a pos.
 function Public.GenerateResourcePatch(surface, resourceName, diameter, pos, amount)
     local midPoint = math_floor(diameter/2)
     if (diameter == 0) then
@@ -1083,8 +1083,6 @@ function Public.GenerateResourcePatch(surface, resourceName, diameter, pos, amou
         end
     end
 end
-
-
 
 
 --------------------------------------------------------------------------------

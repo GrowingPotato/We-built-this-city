@@ -29,9 +29,15 @@ local functions = {
 
 	["panel_size_of_ore"] = function(event)
 		if event.element.switch_state == "left" then
-			for k, v in pairs(global.scenario_config.resource_tiles_new) do v.size = 25 end
+			for k, v in pairs(global.scenario_config.resource_tiles_new) do v.size = 35 end
+			global.scenario_config.pos = {{x=-60,y=-45},{x=-20,y=-45},{x=20,y=-45},{x=60,y=-45}}
+			global.scenario_config.resource_patches_new["crude-oil"].x_offset_start = 85
+			global['scenario_config'].water_new.x_offset = -100
 		else
 			for k, v in pairs(global.scenario_config.resource_tiles_new) do v.size = 18 end
+			global.scenario_config.pos = {{x=-5,y=-45},{x=20,y=-45},{x=-30,y=-45},{x=-56,y=-45}}
+			global.scenario_config.resource_patches_new["crude-oil"].x_offset_start = 60
+			global['scenario_config'].water_new.x_offset = -90
 		end
 	end,
 
@@ -99,7 +105,7 @@ local build_config_gui = (function (player, frame)
 		if not player.admin then return end
 		switch_state = "right"
 		for k, v in pairs(global.scenario_config.resource_tiles_new) do
-			if v.amount == 10000 then switch_state = "left" end
+			if v.amount > 10000 then switch_state = "left" end
 		end
 		add_switch(frame, switch_state, "panel_amount_of_ore", "AmountOfOre", "Starting ore: on = 10000, off = 2500.")
 		line_elements[#line_elements + 1] = frame.add({type = "line"})
@@ -109,7 +115,7 @@ local build_config_gui = (function (player, frame)
 		if not player.admin then return end
 		switch_state = "right"
 		for k, v in pairs(global.scenario_config.resource_tiles_new) do
-			if v.size == 25 then switch_state = "left" end
+			if v.size > 20 then switch_state = "left" end
 		end
 		add_switch(frame, switch_state, "panel_size_of_ore", "SizeOfOre", "Starting ore: on = 25, off = 18.")
 		line_elements[#line_elements + 1] = frame.add({type = "line"})

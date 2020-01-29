@@ -182,11 +182,11 @@ local function update_chest()
     local mode = this.inf_mode[chest.unit_number]
     if mode then
       if mode == 1 then
-        inv.setbar()
+        inv.set_bar()
         chest.destructible = false
         chest.minable     = false
       else
-        inv.setbar(1)
+        inv.set_bar(1)
         chest.destructible = true
         chest.minable     = true
       end
